@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WeFitterHealthConnectExample</string>
+    <string name="rationale">WeFitter for Health Connect would like to have access to your data</string>
+</resources>
