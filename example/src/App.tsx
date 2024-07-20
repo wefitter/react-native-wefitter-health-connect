@@ -41,16 +41,38 @@ export default function App() {
         }
       );
 
+      const prefix = 'android.permission.health';
+      const myAppPermissions: string[] = [
+        `${prefix}.READ_DISTANCE,${prefix}.READ_STEPS`,
+        `${prefix}.READ_TOTAL_CALORIES_BURNED`,
+        `${prefix}.READ_HEART_RATE`,
+        `${prefix}.READ_POWER`,
+        `${prefix}.READ_EXERCISE`,
+        //"$prefix.READ_BLOOD_GLUCOSE",
+        //"$prefix.READ_BLOOD_PRESSURE",
+        //"$prefix.READ_BODY_FAT",
+        //"$prefix.READ_BODY_TEMPERATURE",
+        `${prefix}.READ_HEIGHT`,
+        //"$prefix.READ_OXYGEN_SATURATION",'
+        `${prefix}.READ_WEIGHT`,
+        `${prefix}.READ_SPEED`,
+      ];
+      const myAppPermissionsString = myAppPermissions.join(',');
+
       // create config
       const config = {
-        token: 'YOUR_TOKEN', // required, WeFitter API profile bearer token
-        apiUrl: 'YOUR_API_URL', // optional, only use if you want to use your backend as a proxy and forward all API calls to the WeFitter API. Default: `https://api.wefitter.com/api/`
-        startDate: 'CUSTOM_START_DATE', // optional with format `yyyy-MM-dd`, by default data of the past 20 days will be uploaded
-        notificationTitle: 'CUSTOM_TITLE', // optional
-        notificationText: 'CUSTOM_TEXT', // optional
-        notificationIcon: 'CUSTOM_ICON', // optional, e.g. `ic_notification` placed in either drawable, mipmap or raw
-        notificationChannelId: 'CUSTOM_CHANNEL_ID', // optional
-        notificationChannelName: 'CUSTOM_CHANNEL_NAME', // optional
+        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
+          'eyJpc3MiOiJHSi1URVNUIiwiYXBwIjoiYTI3NTlkMzktYTM4Ni00NWQ3LThkYTItN' +
+          'WQzOTExMjdhMDNjIiwiaWF0IjoxNzE4NDMxOTkxLCJpZCI6IjAwYmJkZmM1LTY5YzUtNDZkNy1iZWQ3LTdjOTliNTI2MmU4NCJ9.' +
+          '52lnJw6BmIqyQtrV1AJ_KEcZhnYOkh0nx4WsoDyujps', // required, WeFitter API profile bearer token
+        //apiUrl: 'YOUR_API_URL', // optional, only use if you want to use your backend as a proxy and forward all API calls to the WeFitter API. Default: `https://api.wefitter.com/api/`
+        //startDate: 'CUSTOM_START_DATE', // optional with format `yyyy-MM-dd`, by default data of the past 20 days will be uploaded
+        //notificationTitle: 'CUSTOM_TITLE', // optional
+        //notificationText: 'CUSTOM_TEXT', // optional
+        //notificationIcon: 'CUSTOM_ICON', // optional, e.g. `ic_notification` placed in either drawable, mipmap or raw
+        //notificationChannelId: 'CUSTOM_CHANNEL_ID', // optional
+        //notificationChannelName: 'CUSTOM_CHANNEL_NAME', // optional
+        appPermissions: myAppPermissionsString,
       };
 
       // configure WeFitterHealthConnect

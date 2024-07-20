@@ -54,7 +54,8 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
     }
     val notificationConfig = parseNotificationConfig(config)
     val startDate = parseStartDate(config)
-    weFitter.configure(token, apiUrl, statusListener, notificationConfig, startDate)
+    val appPermissions = parseAppPermission(config)
+    weFitter.configure(token, apiUrl, statusListener, notificationConfig, startDate, appPermissions)
   }
 
   @ReactMethod
@@ -113,9 +114,20 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
     return resourceId
   }
 
+  private fun parseAppPermission(config: ReadableMap): Set<String> {
+    val appPermsString: String? = config.getString("appPermissions")
+    if (appPermsString != null) {
+      val appPerms: Set<String> = appPermsString.split(',').toSet()
+      return appPerms
+    }
+    return emptySet()
+  }
+
+
   private fun sendEvent(reactContext: ReactContext, eventName: String, params: WritableMap?) {
     reactContext
       .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter::class.java)
       .emit(eventName, params)
   }
+
 }
