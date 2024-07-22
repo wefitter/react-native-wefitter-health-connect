@@ -19,6 +19,8 @@ export default function App() {
   const [connected, setConnected] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log(`WeFitterHealthConnect useEffect`);
+
     if (Platform.OS === 'android') {
       // create native event emitter and event listeners to handle status updates
       const emitter = new NativeEventEmitter();
@@ -61,7 +63,8 @@ export default function App() {
 
       // create config
       const config = {
-        token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
+        token:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.' +
           'eyJpc3MiOiJHSi1URVNUIiwiYXBwIjoiYTI3NTlkMzktYTM4Ni00NWQ3LThkYTItN' +
           'WQzOTExMjdhMDNjIiwiaWF0IjoxNzE4NDMxOTkxLCJpZCI6IjAwYmJkZmM1LTY5YzUtNDZkNy1iZWQ3LTdjOTliNTI2MmU4NCJ9.' +
           '52lnJw6BmIqyQtrV1AJ_KEcZhnYOkh0nx4WsoDyujps', // required, WeFitter API profile bearer token
@@ -75,6 +78,7 @@ export default function App() {
         appPermissions: myAppPermissionsString,
       };
 
+      console.log(`WeFitterHealthConnect configure`);
       // configure WeFitterHealthConnect
       WeFitterHealthConnect.configure(config);
 
