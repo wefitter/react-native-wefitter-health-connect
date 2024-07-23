@@ -12,32 +12,43 @@ import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
 import com.wefitter.healthconnect.WeFitterHealthConnect.Companion.TAG
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 
 class MainActivity : ReactActivity() {
 
-  private val healthConnectPermissionRequest = registerForActivityResult(
-    ActivityResultContracts.RequestMultiplePermissions()
-  ) { permissions ->
-    Log.i(TAG, "permissions $permissions")
-    when {
-      permissions.getOrDefault(android.Manifest.permission.ACTIVITY_RECOGNITION, false) -> {
-      }
-      permissions.getOrDefault(android.Manifest.permission.POST_NOTIFICATIONS, false) -> {
-      }
-      else -> {
-        // No health connect access granted, service can't be started as it will crash
-        Toast.makeText(this, "Health permission is required!", Toast.LENGTH_SHORT).show()
-      }
-    }
-  }
-
   override fun onCreate(savedInstanceState: Bundle?) {
     Log.d("DEBUG", "Overridden")
-    //healthConnectPermissionRequest.launch(
-    //  arrayOf(
-    //    android.Manifest.permission.ACTIVITY_RECOGNITION,
-    //    android.Manifest.permission.POST_NOTIFICATIONS))
+    val healthConnectPermissionRequest = registerForActivityResult(
+      ActivityResultContracts.RequestMultiplePermissions()
+    ) { permissions ->
+      Log.i(TAG, "permissions $permissions")
+
+      when {
+        permissions.getOrDefault(android.Manifest.permission.ACTIVITY_RECOGNITION, false) -> {
+        }
+
+        permissions.getOrDefault(android.Manifest.permission.POST_NOTIFICATIONS, false) -> {
+        }
+
+        else -> {
+          // No health connect access granted, service can't be started as it will crash
+          Toast.makeText(this, "Health permission is required!", Toast.LENGTH_SHORT).show()
+        }
+      }
+    }
+
+    runBlocking {
+      healthConnectPermissionRequest.launch(
+        arrayOf(
+          android.Manifest.permission.ACTIVITY_RECOGNITION,
+          android.Manifest.permission.POST_NOTIFICATIONS
+        )
+      )
+      delay(10000L)
+    }
 
     super.onCreate(savedInstanceState)
     Log.d("DEBUG", "After healthConnectPermissionRequest")

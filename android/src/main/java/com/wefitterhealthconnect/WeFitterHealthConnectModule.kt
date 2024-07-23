@@ -1,5 +1,7 @@
 package com.wefitterhealthconnect
 
+import android.nfc.Tag
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.Callback
@@ -12,13 +14,23 @@ import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.wefitter.healthconnect.WeFitterHealthConnect
 import com.wefitter.healthconnect.WeFitterHealthConnectError
+import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.reflect.KProperty0
+import kotlin.reflect.jvm.isAccessible
 
 class WeFitterHealthConnectModule(private val reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
+
+  val KProperty0<*>.isLazyInitialized: Boolean
+    get() {
+      // Prevent IllegalAccessException from JVM access check
+      isAccessible = true
+      return (getDelegate() as Lazy<*>).isInitialized()
+    }
 
   private val weFitter by lazy { WeFitterHealthConnect(currentActivity as AppCompatActivity) }
 
@@ -26,8 +38,29 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
     return "WeFitterHealthConnect"
   }
 
+  init {
+    Log.d("LAZYTEST", "WeFitterHealthConnectModule init")
+    if(!this::weFitter.isLazyInitialized) {
+      Log.e("LAZYTEST", "wefitter NOT isLazyInitialized")
+    } else {
+      Log.d("LAZYTEST", "wefitter IS isLazyInitialized")
+    }
+  }
+
   @ReactMethod
   fun configure(config: ReadableMap) {
+    /*
+    if(!this::weFitter.isLazyInitialized) {
+      Log.e("LAZYTEST", "wefitter NOT isLazyInitialized")
+      sendEvent(
+        reactContext,
+        "onConfiguredWeFitterHealthConnect",
+        Arguments.createMap().apply { putBoolean("configured", false) })
+      return
+    } else {
+      Log.d("LAZYTEST", "wefitter IS isLazyInitialized")
+    }
+     */
     val token = config.getString("token") ?: ""
     val apiUrl = config.getString("apiUrl")
     val statusListener = object : WeFitterHealthConnect.StatusListener {
