@@ -121,6 +121,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Text>Configured: {'' + configured}</Text>
       <Text>Connected: {'' + connected}</Text>
       <Button
         onPress={onPressConnectOrDisconnect}

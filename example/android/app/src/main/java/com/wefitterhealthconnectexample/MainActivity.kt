@@ -1,77 +1,66 @@
 package com.wefitterhealthconnectexample
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
-import com.wefitter.healthconnect.WeFitterHealthConnect.Companion.TAG
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 
 
-class MainActivity : ReactActivity() {
+class MainActivity : AppCompatActivity() {
 
-  override fun onCreate(savedInstanceState: Bundle?) {
-    Log.d("DEBUG", "Overridden")
-    val healthConnectPermissionRequest = registerForActivityResult(
-      ActivityResultContracts.RequestMultiplePermissions()
-    ) { permissions ->
-      Log.i(TAG, "permissions $permissions")
+  private var ACTIVITY_RECOGNITION: Boolean = false
+  private var POST_NOTIFICATIONS: Boolean = false
 
-      when {
-        permissions.getOrDefault(android.Manifest.permission.ACTIVITY_RECOGNITION, false) -> {
-        }
+  private val healthConnectPermissionRequest = registerForActivityResult(
+    ActivityResultContracts.RequestMultiplePermissions()
+  ) { permissions ->
+    Log.i("DEBUG", "permissions $permissions")
 
-        permissions.getOrDefault(android.Manifest.permission.POST_NOTIFICATIONS, false) -> {
-        }
+    when {
+      permissions.getOrDefault(android.Manifest.permission.ACTIVITY_RECOGNITION, false) -> {
+        ACTIVITY_RECOGNITION = true
+        val intent = Intent(this, MainRNActivity::class.java)
+        val callingActivityName = MainActivity::class.java.simpleName
+        Log.i("DEBUG", "callingActivityName $callingActivityName")
+        intent.putExtra("CALLING_ACTIVITY", callingActivityName)
+        startActivity(intent)
+      }
 
-        else -> {
-          // No health connect access granted, service can't be started as it will crash
-          Toast.makeText(this, "Health permission is required!", Toast.LENGTH_SHORT).show()
-        }
+      permissions.getOrDefault(android.Manifest.permission.POST_NOTIFICATIONS, false) -> {
+        POST_NOTIFICATIONS = true
+      }
+
+      else -> {
+        // No health connect access granted, service can't be started as it will crash
+        Toast.makeText(this, "Health permission is required!", Toast.LENGTH_SHORT).show()
       }
     }
+  }
 
-    runBlocking {
-      healthConnectPermissionRequest.launch(
-        arrayOf(
-          android.Manifest.permission.ACTIVITY_RECOGNITION,
-          android.Manifest.permission.POST_NOTIFICATIONS
-        )
-      )
-      delay(10000L)
-    }
-
+  @RequiresApi(Build.VERSION_CODES.TIRAMISU)
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    Log.d("DEBUG", "Overridden")
+
+
+    healthConnectPermissionRequest.launch(
+      arrayOf(
+        android.Manifest.permission.ACTIVITY_RECOGNITION,
+        android.Manifest.permission.POST_NOTIFICATIONS
+      )
+    )
+
     Log.d("DEBUG", "After healthConnectPermissionRequest")
 
-   }
+  }
 
-    /**
-     * Returns the name of the main component registered from JavaScript. This is used to schedule
-     * rendering of the component.
-     */
-    override fun getMainComponentName(): String {
-        return "WeFitterHealthConnectExample"
-    }
-
-    /**
-     * Returns the instance of the [ReactActivityDelegate]. Here we use a util class [ ] which allows you to easily enable Fabric and Concurrent React
-     * (aka React 18) with two boolean flags.
-     */
-    override fun createReactActivityDelegate(): ReactActivityDelegate {
-        return DefaultReactActivityDelegate(
-            this,
-          mainComponentName,  // If you opted-in for the New Architecture, we enable the Fabric Renderer.
-            fabricEnabled
-        )
-    }
 }
+

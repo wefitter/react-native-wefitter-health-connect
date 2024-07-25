@@ -1,6 +1,5 @@
 package com.wefitterhealthconnect
 
-import android.nfc.Tag
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.react.bridge.Arguments
@@ -14,7 +13,6 @@ import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.wefitter.healthconnect.WeFitterHealthConnect
 import com.wefitter.healthconnect.WeFitterHealthConnectError
-import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -49,18 +47,6 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
 
   @ReactMethod
   fun configure(config: ReadableMap) {
-    /*
-    if(!this::weFitter.isLazyInitialized) {
-      Log.e("LAZYTEST", "wefitter NOT isLazyInitialized")
-      sendEvent(
-        reactContext,
-        "onConfiguredWeFitterHealthConnect",
-        Arguments.createMap().apply { putBoolean("configured", false) })
-      return
-    } else {
-      Log.d("LAZYTEST", "wefitter IS isLazyInitialized")
-    }
-     */
     val token = config.getString("token") ?: ""
     val apiUrl = config.getString("apiUrl")
     val statusListener = object : WeFitterHealthConnect.StatusListener {
@@ -88,6 +74,8 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
     val notificationConfig = parseNotificationConfig(config)
     val startDate = parseStartDate(config)
     val appPermissions = parseAppPermission(config)
+
+    Log.d("LAZYTEST", "wefitter $weFitter")
     weFitter.configure(token, apiUrl, statusListener, notificationConfig, startDate, appPermissions)
   }
 
