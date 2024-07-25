@@ -17,18 +17,20 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
-import kotlin.reflect.KProperty0
-import kotlin.reflect.jvm.isAccessible
+// import kotlin.reflect.KProperty0
+// import kotlin.reflect.jvm.isAccessible
 
 class WeFitterHealthConnectModule(private val reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
 
+    /*
   val KProperty0<*>.isLazyInitialized: Boolean
     get() {
       // Prevent IllegalAccessException from JVM access check
       isAccessible = true
       return (getDelegate() as Lazy<*>).isInitialized()
     }
+     */
 
   private val weFitter by lazy { WeFitterHealthConnect(currentActivity as AppCompatActivity) }
 
@@ -36,6 +38,7 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
     return "WeFitterHealthConnect"
   }
 
+  /*
   init {
     Log.d("LAZYTEST", "WeFitterHealthConnectModule init")
     if(!this::weFitter.isLazyInitialized) {
@@ -44,6 +47,7 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
       Log.d("LAZYTEST", "wefitter IS isLazyInitialized")
     }
   }
+  */
 
   @ReactMethod
   fun configure(config: ReadableMap) {
