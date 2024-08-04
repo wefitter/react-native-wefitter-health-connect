@@ -15,11 +15,11 @@ import WeFitterHealthConnect, {
   ConnectedEvent,
   ErrorEvent,
 } from 'react-native-wefitter-health-connect';
-import delay = Animated.delay;
 
 export default function App() {
   const [connected, setConnected] = useState<boolean>(false);
   const [configured, setConfigured] = useState<boolean>(false);
+  const [error, setError] = useState<ErrorEvent>();
 
   const prefix = 'android.permission.health';
   const myAppPermissions: string[] = [
@@ -66,7 +66,6 @@ export default function App() {
         'onConfiguredWeFitterHealthConnect',
         (event: ConfiguredEvent) => {
           console.log(`WeFitterHealthConnect configured: ${event.configured}`);
-          delay(5000);
           setConfigured(event.configured);
         }
       );
@@ -81,6 +80,7 @@ export default function App() {
         'onErrorWeFitterHealthConnect',
         (event: ErrorEvent) => {
           console.log(`WeFitterHealthConnect error: ${event.error}`);
+          setError(event);
         }
       );
 
@@ -127,6 +127,9 @@ export default function App() {
         onPress={onPressConnectOrDisconnect}
         title={connected ? 'Disconnect' : 'Connect'}
       />
+      <Text style={{ color: 'red' }}>
+        {error ? 'Error: ' + error.error : ''}
+      </Text>
     </View>
   );
 }

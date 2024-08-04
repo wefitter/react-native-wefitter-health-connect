@@ -38,19 +38,24 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
     return "WeFitterHealthConnect"
   }
 
-  /*
   init {
     Log.d("LAZYTEST", "WeFitterHealthConnectModule init")
+    val activity = reactContext.currentActivity;
+    Log.d("LAZYTEST", "WeFitterHealthConnectModule init $activity")
+    /*
     if(!this::weFitter.isLazyInitialized) {
       Log.e("LAZYTEST", "wefitter NOT isLazyInitialized")
     } else {
       Log.d("LAZYTEST", "wefitter IS isLazyInitialized")
     }
-  }
   */
+  }
 
   @ReactMethod
   fun configure(config: ReadableMap) {
+    Log.d("LAZYTEST", "WeFitterHealthConnectModule configure")
+    val activity = reactContext.currentActivity;
+    Log.d("LAZYTEST", "WeFitterHealthConnectModule configure $activity")
     val token = config.getString("token") ?: ""
     val apiUrl = config.getString("apiUrl")
     val statusListener = object : WeFitterHealthConnect.StatusListener {

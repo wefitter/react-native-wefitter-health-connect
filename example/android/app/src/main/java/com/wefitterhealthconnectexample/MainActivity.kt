@@ -27,11 +27,6 @@ class MainActivity : AppCompatActivity() {
     when {
       permissions.getOrDefault(android.Manifest.permission.ACTIVITY_RECOGNITION, false) -> {
         ACTIVITY_RECOGNITION = true
-        val intent = Intent(this, MainRNActivity::class.java)
-        val callingActivityName = MainActivity::class.java.simpleName
-        Log.i("DEBUG", "callingActivityName $callingActivityName")
-        intent.putExtra("CALLING_ACTIVITY", callingActivityName)
-        startActivity(intent)
       }
 
       permissions.getOrDefault(android.Manifest.permission.POST_NOTIFICATIONS, false) -> {
@@ -43,6 +38,13 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this, "Health permission is required!", Toast.LENGTH_SHORT).show()
       }
     }
+
+    val intent = Intent(this, MainRNActivity::class.java)
+    val callingActivityName = MainActivity::class.java.simpleName
+    Log.i("DEBUG", "callingActivityName $callingActivityName")
+    intent.putExtra("CALLING_ACTIVITY", callingActivityName)
+    startActivity(intent)
+
   }
 
   @RequiresApi(Build.VERSION_CODES.TIRAMISU)
