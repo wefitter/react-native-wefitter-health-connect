@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import android.Manifest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
   private var ACTIVITY_RECOGNITION: Boolean = false
   private var POST_NOTIFICATIONS: Boolean = false
 
-  private val healthConnectPermissionRequest = registerForActivityResult(
+  private val healthConnectPermissionRequest = this.registerForActivityResult(
     ActivityResultContracts.RequestMultiplePermissions()
   ) { permissions ->
     Log.i("DEBUG", "permissions $permissions")
@@ -50,19 +51,19 @@ class MainActivity : AppCompatActivity() {
   @RequiresApi(Build.VERSION_CODES.TIRAMISU)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    Log.d("DEBUG", "Overridden")
+    Log.d("DEBUG", "Overridden OnCreate $savedInstanceState")
 
-
-    healthConnectPermissionRequest.launch(
-      arrayOf(
-        android.Manifest.permission.ACTIVITY_RECOGNITION,
-        android.Manifest.permission.POST_NOTIFICATIONS
+    // Apparently needed for Android 13 behaviour calling OnCreate twice
+    if (savedInstanceState == null) {
+      healthConnectPermissionRequest.launch(
+        arrayOf(
+          android.Manifest.permission.ACTIVITY_RECOGNITION,
+          android.Manifest.permission.POST_NOTIFICATIONS
+        )
       )
-    )
-
-    Log.d("DEBUG", "After healthConnectPermissionRequest")
-
+      Log.d("DEBUG", "After healthConnectPermissionRequest")
+    }
+    Log.d("DEBUG", "OnCreate finished")
   }
-
 }
 

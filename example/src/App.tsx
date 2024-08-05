@@ -8,7 +8,6 @@ import {
   Button,
   Platform,
   NativeEventEmitter,
-  Animated,
 } from 'react-native';
 import WeFitterHealthConnect, {
   ConfiguredEvent,
