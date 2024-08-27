@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+Sleep data added
+
 ## 0.1.1
 
 Full Android 14 support
