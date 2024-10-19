@@ -119,7 +119,7 @@ dependencies {
   } else {
     implementation jscFlavor
   }
-
+  implementation('com.android.support:appcompat-v7:28.0.0')
   implementation fileTree(dir: "../../../android/libs", include: ["*.aar"])
 }
 

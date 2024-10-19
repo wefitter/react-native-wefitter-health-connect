@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.4
+
+Removed Toast messages from Foreground Service
+
+## 0.1.3
+
+Skipped 
+
 ## 0.1.2
 
 Sleep data added

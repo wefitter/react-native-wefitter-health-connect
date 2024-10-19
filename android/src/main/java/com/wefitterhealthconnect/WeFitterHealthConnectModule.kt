@@ -13,6 +13,8 @@ import com.facebook.react.bridge.WritableMap
 import com.facebook.react.modules.core.DeviceEventManagerModule
 import com.wefitter.healthconnect.WeFitterHealthConnect
 import com.wefitter.healthconnect.WeFitterHealthConnectError
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -90,7 +92,23 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
 
   @ReactMethod
   fun connect() {
-    weFitter.connect()
+    runBlocking {
+      var retries: Int = 0;
+      while (weFitter.isConnected() == false && retries < 5){
+        weFitter.connect()
+        retries++
+        Log.d("CONNECT", "${weFitter.isConnected()} $retries")
+        delay(5000L)
+      }
+    }
+    if (weFitter.isConnected())
+      return
+    else {
+      sendEvent(
+        reactContext,
+        "onErrorWeFitterHealthConnect",
+        Arguments.createMap().apply { putString("error", "ERROR CONNECTING") })
+    }
   }
 
   @ReactMethod
