@@ -19,45 +19,27 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
-// import kotlin.reflect.KProperty0
-// import kotlin.reflect.jvm.isAccessible
 
 class WeFitterHealthConnectModule(private val reactContext: ReactApplicationContext) :
   ReactContextBaseJavaModule(reactContext) {
 
-    /*
-  val KProperty0<*>.isLazyInitialized: Boolean
-    get() {
-      // Prevent IllegalAccessException from JVM access check
-      isAccessible = true
-      return (getDelegate() as Lazy<*>).isInitialized()
-    }
-     */
-
-  private val weFitter by lazy { WeFitterHealthConnect(currentActivity as AppCompatActivity) }
+  // private val weFitter by lazy { WeFitterHealthConnect(currentActivity as AppCompatActivity) }
+  private lateinit var weFitter: WeFitterHealthConnect
 
   override fun getName(): String {
     return "WeFitterHealthConnect"
   }
 
   init {
-    Log.d("LAZYTEST", "WeFitterHealthConnectModule init")
-    val activity = reactContext.currentActivity;
-    Log.d("LAZYTEST", "WeFitterHealthConnectModule init $activity")
-    /*
-    if(!this::weFitter.isLazyInitialized) {
-      Log.e("LAZYTEST", "wefitter NOT isLazyInitialized")
-    } else {
-      Log.d("LAZYTEST", "wefitter IS isLazyInitialized")
-    }
-  */
+    Log.d("DEBUG", "WeFitterHealthConnectModule init")
   }
 
   @ReactMethod
   fun configure(config: ReadableMap) {
-    Log.d("LAZYTEST", "WeFitterHealthConnectModule configure")
+    Log.d("DEBUG", "WeFitterHealthConnectModule configure")
     val activity = reactContext.currentActivity;
-    Log.d("LAZYTEST", "WeFitterHealthConnectModule configure $activity")
+    weFitter = WeFitterHealthConnect(reactContext.currentActivity!! as AppCompatActivity)
+    Log.d("DEBUG", "WeFitterHealthConnectModule configure $activity")
     val token = config.getString("token") ?: ""
     val apiUrl = config.getString("apiUrl")
     val statusListener = object : WeFitterHealthConnect.StatusListener {
@@ -86,7 +68,7 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
     val startDate = parseStartDate(config)
     val appPermissions = parseAppPermission(config)
 
-    Log.d("LAZYTEST", "wefitter $weFitter")
+    //Log.d("DEBUG", "wefitter $weFitter")
     weFitter.configure(token, apiUrl, statusListener, notificationConfig, startDate, appPermissions)
   }
 

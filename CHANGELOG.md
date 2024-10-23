@@ -1,12 +1,16 @@
 # Changelog
 
+## 0.1.5
+
+Refactor Foreground Service for start/stop/restart
+
 ## 0.1.4
 
 Removed Toast messages from Foreground Service
 
 ## 0.1.3
 
-Skipped 
+Skipped
 
 ## 0.1.2
 
