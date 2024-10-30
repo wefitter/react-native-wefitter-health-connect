@@ -51,6 +51,7 @@ export default function App() {
     notificationChannelId: 'CUSTOM_CHANNEL_ID', // optional
     notificationChannelName: 'CUSTOM_CHANNEL_NAME', // optional
     appPermissions: myAppPermissionsString,
+    configFGSPermissions: 'true',
   };
 
   useEffect(() => {

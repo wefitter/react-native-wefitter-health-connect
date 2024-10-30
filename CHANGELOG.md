@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.7
+
+Moved all permissions stuff into the SDK
+Added extra parameter for configure to allow isConnected call without asking for permissions
+
+## 0.1.6
+
+Move FGS back again into the SDK
+
 ## 0.1.5
 
 Refactor Foreground Service for start/stop/restart
