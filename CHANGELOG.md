@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.2.0
+
+Enhanced / improved Android 14 support 
+
+Stability improvements Foreground Service
+
 ## 0.1.7
 
 Moved all permissions stuff into the SDK
