@@ -75,6 +75,11 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
 
   @ReactMethod
   fun connect() {
+    weFitter.connect()
+  }
+
+  @ReactMethod
+  fun connect2() {
     runBlocking {
       var retries: Int = 0;
       while (weFitter.isConnected() == false && retries < 5){

@@ -32,9 +32,9 @@ export default function App() {
     //"$prefix.READ_BLOOD_PRESSURE",
     //"$prefix.READ_BODY_FAT",
     //"$prefix.READ_BODY_TEMPERATURE",
-    `${prefix}.READ_HEIGHT`,
+    //`${prefix}.READ_HEIGHT`,
     //"$prefix.READ_OXYGEN_SATURATION",'
-    `${prefix}.READ_WEIGHT`,
+    //`${prefix}.READ_WEIGHT`,
     `${prefix}.READ_SPEED`,
     `${prefix}.READ_SLEEP`,
   ];
