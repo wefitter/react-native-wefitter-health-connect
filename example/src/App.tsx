@@ -18,7 +18,7 @@ import WeFitterHealthConnect, {
 export default function App() {
   const [connected, setConnected] = useState<boolean>(false);
   const [configured, setConfigured] = useState<boolean>(false);
-  const [error, setError] = useState<ErrorEvent>();
+  const [error, setError] = useState<ErrorEvent>(null);
 
   const prefix = 'android.permission.health';
   const myAppPermissions: string[] = [
@@ -42,8 +42,9 @@ export default function App() {
 
   // create config
   const config = {
-    token: 'YOUR_BEARER_TOKEN', // required, WeFitter API profile bearer token
-    apiUrl: 'YOUR_API_URL', // optional, only use if you want to use your backend as a proxy and forward all API calls to the WeFitter API. Default: `https://api.wefitter.com/api/`
+    token:
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJHSi1URVNUIiwiYXBwIjoiYTI3NTlkMzktYTM4Ni00NWQ3LThkYTItNWQzOTExMjdhMDNjIiwiaWF0IjoxNzQ3MTIwOTczLCJpZCI6ImRjZDY0YzlmLTQ4MmMtNGU2Zi1iYWZkLWVmMTY4NTdiNTE4YiJ9.mfWXnDLdkhY4tgtJJtVX5OIFdDOsLe_gZoNWR7E33UM', // required, WeFitter API profile bearer token
+    apiUrl: 'https://api.wefitter.com/api/', // optional, only use if you want to use your backend as a proxy and forward all API calls to the WeFitter API. Default: `https://api.wefitter.com/api/`
     // startDate: 'CUSTOM_START_DATE', // optional with format `yyyy-MM-dd`, by default data of the past 20 days will be uploaded
     notificationTitle: 'CUSTOM_TITLE', // optional
     notificationText: 'CUSTOM_TEXT', // optional
