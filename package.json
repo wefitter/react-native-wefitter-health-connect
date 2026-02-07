@@ -48,6 +48,14 @@
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
+  "codegenConfig": {
+    "name": "WeFitterHealthConnectSpec",
+    "type": "modules",
+    "jsSrcsDir": "specs",
+    "android": {
+      "javaPackageName": "com.wefitterhealthconnect"
+    }
+  },
   "dependencies": {
     "@babel/eslint-parser": "^7.28.6",
     "@eslint/js": "^9.39.2",

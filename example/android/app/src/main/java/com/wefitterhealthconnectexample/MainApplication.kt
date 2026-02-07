@@ -8,12 +8,15 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
+import com.facebook.react.ReactHost
 import com.facebook.react.ReactNativeHost
 import com.facebook.react.ReactPackage
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.load
+import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.soloader.SoLoader
 import com.facebook.react.soloader.OpenSourceMergedSoMapping
+import com.wefitterhealthconnect.WeFitterHealthConnectPackage
 
 class MainApplication : Application(), ReactApplication {
   @Deprecated(
@@ -25,7 +28,7 @@ class MainApplication : Application(), ReactApplication {
       override fun getPackages(): List<ReactPackage> =
         PackageList(this).packages.apply {
           // Packages that cannot be autolinked yet can be added manually here, for example:
-          // add(MyReactNativePackage())
+          add(WeFitterHealthConnectPackage())
         }
 
       override fun getJSMainModuleName(): String = "index"
@@ -36,6 +39,10 @@ class MainApplication : Application(), ReactApplication {
 
       override val isHermesEnabled: Boolean = BuildConfig.IS_HERMES_ENABLED
     }
+
+  override val reactHost: ReactHost
+    get() = getDefaultReactHost(applicationContext, reactNativeHost)
+
   /*
   private val mReactNativeHost: ReactNativeHost = object : DefaultReactNativeHost(this) {
     override fun getUseDeveloperSupport(): Boolean {

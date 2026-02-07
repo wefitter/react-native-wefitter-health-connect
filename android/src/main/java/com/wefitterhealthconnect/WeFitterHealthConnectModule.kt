@@ -20,23 +20,27 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
+import com.wefitterhealthconnect.WeFitterHealthConnectSpec
 
-class WeFitterHealthConnectModule(private val reactContext: ReactApplicationContext) :
-  ReactContextBaseJavaModule(reactContext) {
 
-  // private val weFitter by lazy { WeFitterHealthConnect(currentActivity as AppCompatActivity) }
+// class WeFitterHealthConnectModule(private val reactContext: ReactApplicationContext) :
+//   ReactContextBaseJavaModule(reactContext) {
+class WeFitterHealthConnectModule(reactContext: ReactApplicationContext) : WeFitterHealthConnectSpec(reactContext) {
+
+  override fun getName() = NAME
+
+    // private val weFitter by lazy { WeFitterHealthConnect(currentActivity as AppCompatActivity) }
   private lateinit var weFitter: WeFitterHealthConnect
 
-  override fun getName(): String {
-    return "WeFitterHealthConnect"
-  }
+  //override fun getName(): String {
+  //  return "WeFitterHealthConnect"
+  //}
 
   init {
     Log.d("DEBUG", "WeFitterHealthConnectModule init")
   }
 
-  @ReactMethod
-  fun configure(config: ReadableMap) {
+  override fun configure(config: WFConfig) {
     Log.d("DEBUG", "WeFitterHealthConnectModule configure")
     val activity = reactContext.currentActivity;
     weFitter = WeFitterHealthConnect(reactContext.currentActivity!! as AppCompatActivity)
@@ -73,12 +77,10 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
     weFitter.configure(token, apiUrl, statusListener, notificationConfig, startDate, appPermissions, configFGSPermissions)
   }
 
-  @ReactMethod
-  fun connect() {
+  override fun connect() {
     weFitter.connect()
   }
 
-  @ReactMethod
   fun connect2() {
     runBlocking {
       var retries: Int = 0;
@@ -99,18 +101,15 @@ class WeFitterHealthConnectModule(private val reactContext: ReactApplicationCont
     }
   }
 
-  @ReactMethod
-  fun disconnect() {
+  override fun disconnect() {
     weFitter.disconnect()
   }
 
-  @ReactMethod
-  fun isConnected(callback: Callback) {
+   fun isConnected(callback: Callback) {
     callback(weFitter.isConnected())
   }
 
-  @ReactMethod
-  fun isSupported(callback: Callback) {
+   fun isSupported(callback: Callback) {
     callback(weFitter.isSupported())
   }
 
