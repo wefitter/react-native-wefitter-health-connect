@@ -15,9 +15,9 @@ export interface WFConfig {
 }
 
 export interface Spec extends TurboModule {
-  configure(config: WFConfig);
-  connect();
-  disconnect();
+  configure(config: WFConfig): null;
+  connect(): null;
+  disconnect(): null;
   //isConnected(callback: Callback);
   //isConnected(callback: Callback);
   //isSupported(callback: Callback);

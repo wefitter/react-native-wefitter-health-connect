@@ -10,19 +10,16 @@ import {
   NativeEventEmitter,
 } from 'react-native';
 import WeFitterHealthConnect, {
-  ConfiguredEvent,
-  ConnectedEvent,
-  ErrorEvent,
+  type ConfiguredEvent,
+  type ConnectedEvent,
+  type ErrorEvent,
 } from 'react-native-wefitter-health-connect';
-
-interface Dictionary {
-  [key: string]: string;
-}
+import { type WFConfig } from '../../specs/WeFitterHealthConnect';
 
 export default function App() {
   const [connected, setConnected] = useState<boolean>(false);
   const [configured, setConfigured] = useState<boolean>(false);
-  const [error, setError] = useState<ErrorEvent>(null);
+  const [error, setError] = useState<ErrorEvent>();
 
   const prefix = 'android.permission.health';
   const myAppPermissions: string[] = [
@@ -45,7 +42,7 @@ export default function App() {
   const myAppPermissionsString = myAppPermissions.join(',');
 
   // create config
-  const config: Dictionary = {
+  const config: WFConfig = {
     token:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJHSi1URVNUIiwiYXBwIjoiYTI3NTlkMzktYTM4Ni00NWQ3LThkYTItNWQzOTExMjdhMDNjIiwiaWF0IjoxNzQ3MTIwOTczLCJpZCI6ImRjZDY0YzlmLTQ4MmMtNGU2Zi1iYWZkLWVmMTY4NTdiNTE4YiJ9.mfWXnDLdkhY4tgtJJtVX5OIFdDOsLe_gZoNWR7E33UM', // required, WeFitter API profile bearer token
     apiUrl: 'https://api.wefitter.com/api/', // optional, only use if you want to use your backend as a proxy and forward all API calls to the WeFitter API. Default: `https://api.wefitter.com/api/`
