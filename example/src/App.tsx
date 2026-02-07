@@ -14,7 +14,7 @@ import WeFitterHealthConnect, {
   type ConnectedEvent,
   type ErrorEvent,
 } from 'react-native-wefitter-health-connect';
-import { type WFConfig } from '../../specs/WeFitterHealthConnect';
+import { type WFConfig } from '../../specs/NativeWeFitterHealthConnect';
 
 export default function App() {
   const [connected, setConnected] = useState<boolean>(false);

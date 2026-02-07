@@ -49,7 +49,7 @@
     "registry": "https://registry.npmjs.org/"
   },
   "codegenConfig": {
-    "name": "WeFitterHealthConnectSpec",
+    "name": "NativeWeFitterHealthConnectSpec",
     "type": "modules",
     "jsSrcsDir": "specs",
     "android": {
