@@ -1,5 +1,5 @@
-import type {TurboModule} from 'react-native';
-import {TurboModuleRegistry} from 'react-native';
+import type { TurboModule } from 'react-native';
+import { TurboModuleRegistry } from 'react-native';
 
 export interface WFConfig {
   token: string;
@@ -23,6 +23,4 @@ export interface Spec extends TurboModule {
   //isSupported(callback: Callback);
 }
 
-export default TurboModuleRegistry.getEnforcing<Spec>(
-  'WeFitterHealthConnect',
-);
+export default TurboModuleRegistry.getEnforcing<Spec>('WeFitterHealthConnect');
