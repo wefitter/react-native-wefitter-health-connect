@@ -15,44 +15,44 @@ import WeFitterHealthConnect, {
   ErrorEvent,
 } from 'react-native-wefitter-health-connect';
 
+const prefix = 'android.permission.health';
+const myAppPermissions: string[] = [
+  `${prefix}.READ_DISTANCE`,
+  `${prefix}.READ_STEPS`,
+  `${prefix}.READ_TOTAL_CALORIES_BURNED`,
+  `${prefix}.READ_HEART_RATE`,
+  `${prefix}.READ_POWER`,
+  `${prefix}.READ_EXERCISE`,
+  //"$prefix.READ_BLOOD_GLUCOSE",
+  //"$prefix.READ_BLOOD_PRESSURE",
+  //"$prefix.READ_BODY_FAT",
+  //"$prefix.READ_BODY_TEMPERATURE",
+  //`${prefix}.READ_HEIGHT`,
+  //"$prefix.READ_OXYGEN_SATURATION",'
+  //`${prefix}.READ_WEIGHT`,
+  `${prefix}.READ_SPEED`,
+  `${prefix}.READ_SLEEP`,
+];
+const myAppPermissionsString = myAppPermissions.join(',');
+
+// create config
+const config = {
+  token: 'YOUR_BEARER_TOKEN', // required, WeFitter API profile bearer token
+  apiUrl: 'YOUR_API_URL', // optional, only use if you want to use your backend as a proxy and forward all API calls to the WeFitter API. Default: `https://api.wefitter.com/api/`
+  // startDate: 'CUSTOM_START_DATE', // optional with format `yyyy-MM-dd`, by default data of the past 20 days will be uploaded
+  notificationTitle: 'CUSTOM_TITLE', // optional
+  notificationText: 'CUSTOM_TEXT', // optional
+  notificationIcon: 'CUSTOM_ICON', // optional, e.g. `ic_notification` placed in either drawable, mipmap or raw
+  notificationChannelId: 'CUSTOM_CHANNEL_ID', // optional
+  notificationChannelName: 'CUSTOM_CHANNEL_NAME', // optional
+  appPermissions: myAppPermissionsString,
+  configFGSPermissions: 'true',
+};
+
 export default function App() {
   const [connected, setConnected] = useState<boolean>(false);
   const [configured, setConfigured] = useState<boolean>(false);
   const [error, setError] = useState<ErrorEvent>();
-
-  const prefix = 'android.permission.health';
-  const myAppPermissions: string[] = [
-    `${prefix}.READ_DISTANCE`,
-    `${prefix}.READ_STEPS`,
-    `${prefix}.READ_TOTAL_CALORIES_BURNED`,
-    `${prefix}.READ_HEART_RATE`,
-    `${prefix}.READ_POWER`,
-    `${prefix}.READ_EXERCISE`,
-    //"$prefix.READ_BLOOD_GLUCOSE",
-    //"$prefix.READ_BLOOD_PRESSURE",
-    //"$prefix.READ_BODY_FAT",
-    //"$prefix.READ_BODY_TEMPERATURE",
-    //`${prefix}.READ_HEIGHT`,
-    //"$prefix.READ_OXYGEN_SATURATION",'
-    //`${prefix}.READ_WEIGHT`,
-    `${prefix}.READ_SPEED`,
-    `${prefix}.READ_SLEEP`,
-  ];
-  const myAppPermissionsString = myAppPermissions.join(',');
-
-  // create config
-  const config = {
-    token: 'YOUR_BEARER_TOKEN', // required, WeFitter API profile bearer token
-    apiUrl: 'YOUR_API_URL', // optional, only use if you want to use your backend as a proxy and forward all API calls to the WeFitter API. Default: `https://api.wefitter.com/api/`
-    // startDate: 'CUSTOM_START_DATE', // optional with format `yyyy-MM-dd`, by default data of the past 20 days will be uploaded
-    notificationTitle: 'CUSTOM_TITLE', // optional
-    notificationText: 'CUSTOM_TEXT', // optional
-    notificationIcon: 'CUSTOM_ICON', // optional, e.g. `ic_notification` placed in either drawable, mipmap or raw
-    notificationChannelId: 'CUSTOM_CHANNEL_ID', // optional
-    notificationChannelName: 'CUSTOM_CHANNEL_NAME', // optional
-    appPermissions: myAppPermissionsString,
-    configFGSPermissions: 'true',
-  };
 
   useEffect(() => {
     console.log(`WeFitterHealthConnect useEffect`);
