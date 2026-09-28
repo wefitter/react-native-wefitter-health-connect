@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.2.7
+
+Upgraded to WeFitter HealthConnect SDK 0.2.7
+
+Foreground service restarts automatically after a system kill or reboot
+
+Fixed timezone in daily summaries; daily summaries are now aligned to complete local calendar days
+
+## 0.2.2
+
+Fixed timezone in sleep data
+
 ## 0.2.0
 
 Enhanced / improved Android 14 support 
