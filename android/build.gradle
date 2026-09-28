@@ -37,7 +37,13 @@ def getExtOrIntegerDefault(name) {
 }
 
 android {
+  namespace "com.wefitterhealthconnect"
+
   compileSdkVersion getExtOrIntegerDefault("compileSdkVersion")
+
+  buildFeatures {
+    buildConfig true
+  }
 
   defaultConfig {
     minSdkVersion getExtOrIntegerDefault("minSdkVersion")
