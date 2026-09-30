@@ -10,9 +10,9 @@ import {
   NativeEventEmitter,
 } from 'react-native';
 import WeFitterHealthConnect, {
-  ConfiguredEvent,
-  ConnectedEvent,
-  ErrorEvent,
+  type ConfiguredEvent,
+  type ConnectedEvent,
+  type ErrorEvent,
 } from 'react-native-wefitter-health-connect';
 
 const prefix = 'android.permission.health';
