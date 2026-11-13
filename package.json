@@ -1,6 +1,6 @@
 {
   "name": "react-native-wefitter-health-connect",
-  "version": "0.0.1",
+  "version": "0.2.14",
   "description": "React Native library for WeFitter and Health Connect",
   "private": true,
   "main": "lib/commonjs/index",

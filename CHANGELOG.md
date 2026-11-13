@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.2.14
+
+Bundles WeFitter HealthConnect SDK 0.2.7 (wefitter-health-connect-0.2.7.aar); v0.2.13 still shipped SDK 0.2.2
+
+Fixed Android Gradle Plugin 8 build issues (namespace declared, buildConfig enabled), so apps from the RN 0.74 template can build the library
+
+Aligned the library and example app on React Native 0.74.3
+
+Set package.json version to the release version
+
 ## 0.2.7
 
 Upgraded to WeFitter HealthConnect SDK 0.2.7
